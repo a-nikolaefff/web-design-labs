@@ -1,22 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Lab1_1 from '../views/Lab1_1/Lab1_1.vue';
-import Lab1_2 from '../views/Lab1_2/Lab1_2.vue';
-import Lab1_3 from '../views/Lab1_3/Lab1_3.vue';
-import Lab1_4 from '../views/Lab1_4/Lab1_4.vue';
-import Lab1_5 from '../views/Lab1_5/Lab1_5.vue';
-import Lab1_6 from '../views/Lab1_6/Lab1_6.vue';
-import Lab1_7 from '../views/Lab1_7/Lab1_7.vue';
-import Lab1_8 from '../views/Lab1_8/Lab1_8.vue';
-import Lab2_1 from '../views/Lab2_1/Lab2_1.vue';
-import Lab3_1 from '../views/Lab3_1/Lab3_1.vue';
-import Lab4_1 from '../views/Lab4_1/Lab4_1.vue';
-import Lab5_1 from '../views/Lab5_1/Lab5_1.vue';
-import Lab6_1 from '../views/Lab6_1/Lab6_1.vue';
-import Lab7_1 from '../views/Lab7_1/Lab7_1.vue';
-import Lab8_1 from '../views/Lab8_1/Lab8_1.vue';
+import Lab1_1 from '../views/lab1/Lab1_1.vue';
+import Lab1_2 from '../views/lab1/Lab1_2.vue';
+import Lab1_3 from '../views/lab1/Lab1_3.vue';
+import Lab1_4 from '../views/lab1/Lab1_4.vue';
+import Lab1_5 from '../views/lab1/Lab1_5.vue';
+import Lab1_6 from '../views/lab1/Lab1_6.vue';
+import Lab1_7 from '../views/lab1/Lab1_7.vue';
+import Lab1_8 from '../views/lab1/Lab1_8.vue';
+import Lab2 from '../views/lab2/Lab2.vue';
+import Lab3 from '../views/lab3/Lab3.vue';
+import Lab4 from '../views/lab4/Lab4.vue';
+import Lab5 from '../views/lab5/Lab5.vue';
+import Lab6 from '../views/lab6/Lab6.vue';
+import Lab7 from '../views/lab7/Lab7.vue';
+import Lab8 from '../views/lab8/Lab8.vue';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
@@ -65,38 +65,38 @@ const router = createRouter({
     },
     {
       path: '/lab2/1',
-      name: 'lab2_1',
-      component: Lab2_1
+      name: 'lab2',
+      component: Lab2
     },
     {
       path: '/lab3/1',
-      name: 'lab3_1',
-      component: Lab3_1
+      name: 'lab3',
+      component: Lab3
     },
     {
       path: '/lab4/1',
-      name: 'lab4_1',
-      component: Lab4_1
+      name: 'lab4',
+      component: Lab4
     },
     {
       path: '/lab5/1',
-      name: 'lab5_1',
-      component: Lab5_1
+      name: 'lab5',
+      component: Lab5
     },
     {
       path: '/lab6/1',
-      name: 'lab6_1',
-      component: Lab6_1
+      name: 'lab6',
+      component: Lab6
     },
     {
       path: '/lab7/1',
-      name: 'lab7_1',
-      component: Lab7_1
+      name: 'lab7',
+      component: Lab7
     },
     {
       path: '/lab8/1',
-      name: 'lab8_1',
-      component: Lab8_1
+      name: 'lab8',
+      component: Lab8
     }
   ]
 })

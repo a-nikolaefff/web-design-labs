@@ -1,23 +1,15 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import * as THREE from 'three';
-import { renderFunc } from '/src/services/threeHelper.ts';
-import { createRing } from '/src/services/figureFactory.ts';
+import { renderFunc } from '/src/services/render.ts'
+import {  createRing } from '/src/services/figures.ts'
+
 
 const webGl = ref();
-
-const createCircle = () => {
-    const geometry = new THREE.CircleGeometry(15, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 'white' });
-    const circle = new THREE.Mesh(geometry, material);
-
-    return circle;
-}
 
 watchEffect(() => {
     if (webGl.value) {
         const canvas = webGl.value;
-
+        
         renderFunc(canvas, (scene) => {
 
             let ring1 = createRing('white');
@@ -27,7 +19,7 @@ watchEffect(() => {
             let ring2 = createRing('white');
             ring2.position.y = 100;
 
-            let ring3 = createCircle();
+            let ring3 = createRing('white', 5, 15, 25, true);
             ring3.position.x = 200;
             ring3.position.y = 100;
 
@@ -49,7 +41,7 @@ watchEffect(() => {
 </script>
 
 <template>
-    <h1>Олимпийские кольца с нераскрывшимся (Circle)</h1>
+    <h1>Олимпийские кольца с нераскрывшимся</h1>
     <canvas ref="webGl" class="webGl"></canvas>
 </template>
 

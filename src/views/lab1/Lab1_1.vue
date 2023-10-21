@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import { renderFunc } from '/src/services/threeHelper.ts'
-import { setPositions } from '/src/services/meshHelper.ts'
-import { createTorus } from '/src/services/figureFactory.ts'
+import { renderFunc } from '/src/services/render.ts'
+import { setPositions } from '/src/services/position.ts'
+import { createTorus } from '/src/services/figures.ts'
 
 
 const webGl = ref();

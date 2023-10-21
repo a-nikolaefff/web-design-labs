@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import { renderFunc } from '/src/services/threeHelper.ts';
-import { createBox } from '/src/services/figureFactory.ts';
+import { renderFunc } from '/src/services/render.ts';
+import { createBox } from '/src/services/figures.ts';
 
 const webGl = ref();
 
