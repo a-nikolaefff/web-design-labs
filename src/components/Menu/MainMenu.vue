@@ -15,4 +15,12 @@ import { menuItems } from './constants.ts'
 </template>
 
 
-<style scoped  lang="scss"></style>
+<style scoped  lang="scss">
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 15px;
+  font-size: 16px;
+
+}
+</style>

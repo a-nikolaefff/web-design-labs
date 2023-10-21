@@ -5,7 +5,7 @@ export const renderFunc = (
   func: (scene: THREE.Scene) => void,
   whiteBackground: boolean = false
 ) => {
-  const width = window.innerWidth - 350
+  const width = window.innerWidth - 65
   const height = window.innerHeight - 200
   const renderer = new THREE.WebGLRenderer({ canvas: canvas })
   renderer.setSize(width, height)

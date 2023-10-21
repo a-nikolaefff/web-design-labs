@@ -64,37 +64,37 @@ const router = createRouter({
       component: Lab1_8
     },
     {
-      path: '/lab2/1',
+      path: '/lab2',
       name: 'lab2',
       component: Lab2
     },
     {
-      path: '/lab3/1',
+      path: '/lab3',
       name: 'lab3',
       component: Lab3
     },
     {
-      path: '/lab4/1',
+      path: '/lab4',
       name: 'lab4',
       component: Lab4
     },
     {
-      path: '/lab5/1',
+      path: '/lab5',
       name: 'lab5',
       component: Lab5
     },
     {
-      path: '/lab6/1',
+      path: '/lab6',
       name: 'lab6',
       component: Lab6
     },
     {
-      path: '/lab7/1',
+      path: '/lab7',
       name: 'lab7',
       component: Lab7
     },
     {
-      path: '/lab8/1',
+      path: '/lab8',
       name: 'lab8',
       component: Lab8
     }

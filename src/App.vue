@@ -5,9 +5,14 @@ import MainMenu from './components/Menu/MainMenu.vue';
 
 <template>
   <div class="header">
-    <img alt="ГИС НГТУ" class="logo" src="@/assets/gis_logo.png" width="150" height="64" />
+    <p>
+      Лабораторные работы по предмету "Дизайн в WEB-ресурсах".
+      Студент Николаев Александр Евгеньевич группы М22 ИСТ-5з НГТУ им. Р.Е. Алексеева.
+    </p>
   </div>
-  <MainMenu />
+  <hr>
+  <MainMenu/>
+  <hr>
   <div class="content">
     <RouterView />
   </div>
@@ -15,30 +20,13 @@ import MainMenu from './components/Menu/MainMenu.vue';
 
 <style scoped  lang="scss">
 .header {
+  padding: 15px 0 15px 27px;
+  font-size: 20px;
+  font-weight: 1200;
   width: 100%;
-  height: 84px;
-  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, .5);
-}
-
-.header img {
-
-  margin-top: 10px;
-  margin-left: 30px;
-
-}
-
-.menu {
-  padding-left: 15px;
-  padding-top: 10px;
-  position: absolute;
-  width: 250px;
-  height: calc(100vh - 84px);
-  //background: red;
-  box-shadow: 0px 5px 3px rgba(0, 0, 0, .5);
-  //border-right: 1px solid rgba(159, 157, 247, 0.212);
 }
 
 .content {
-  margin-left: 300px;
+  margin: 10px 0px 10px 30px;
 }
 </style>

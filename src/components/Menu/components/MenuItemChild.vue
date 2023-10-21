@@ -18,6 +18,8 @@ function handleClick() {
 watch(
     () => route.currentRoute.value.fullPath,
     async () => {
+      console.log(route.currentRoute.value.fullPath)
+      console.log(props.url!)
         isActivea.value = route.currentRoute.value.fullPath.includes(props.url!);
     }
 );
@@ -30,8 +32,7 @@ watch(
 
 <style scoped lang="scss">
 .menu-item-child {
-    margin: 8px 10px 8px 30px;
-    color: #003775;
+    margin: 8px 15px 8px 15px;
     cursor: pointer;
 }
 
