@@ -10,17 +10,17 @@ watchEffect(() => {
         const canvas = canvasElement.value;
 
         render(canvas, (scene) => {
-            const torus1 = getTorus('#FF7200');
+            const torus1 = getTorus('#white');
             torus1.position.x = -500;
             torus1.position.y = 150;
             torus1.position.z = 0;
 
-            const torus2 = getTorus('#E1BEE7');
+            const torus2 = getTorus('#AD1457');
             torus2.position.x = -220;
             torus2.position.y = -200;
             torus2.position.z = 0;
 
-            const torus3 = getTorus('#AED581');
+            const torus3 = getTorus('#43A047');
             torus3.position.x = -60;
             torus3.position.y = 200;
             torus3.position.z = 0;

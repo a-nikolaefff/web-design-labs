@@ -1,28 +1,24 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
 import { render } from '/src/services/render.ts';
-import { createBox } from '/src/services/figures.ts';
+import { getCube } from '/src/services/figures.ts';
 
-const webGl = ref();
+const canvasElement = ref();
 
 watchEffect(() => {
-    if (webGl.value) {
-        const canvas = webGl.value;
+    if (canvasElement.value) {
+        const canvas = canvasElement.value;
 
         render(canvas, (scene) => {
 
-            let box1 = createBox(100, 20, 'white');
-            box1.position.z = 300;
-            box1.position.x = -300;
-            box1.position.y = 20;
+            const cube1 = getCube(200, 20, '#AD1457');
+            cube1.position.x = -300;
 
-            let box2 = createBox(300, 5, 'red');
-            box2.position.z = -300;
-            box2.position.x = 300;
-            box2.position.y = 60;
+            const cube2 = getCube(400, 5, '#43A047');
+            cube2.position.x = 300;
 
-            scene.add(box1);
-            scene.add(box2);
+            scene.add(cube1);
+            scene.add(cube2);
         })
     }
 })
@@ -30,8 +26,9 @@ watchEffect(() => {
 </script>
 
 <template>
-    <h1>Кубы с разным количеством ячеек</h1>
-    <canvas ref="webGl" class="webGl"></canvas>
+    <h1>Задайте материал с типом wireframe так, чтобы больший куб имел меньшее
+      количество ячеек сетки, а меньший – большее количество ячеек.</h1>
+    <canvas ref="canvasElement"></canvas>
 </template>
 
 <style scoped  lang="scss">

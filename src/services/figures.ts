@@ -26,7 +26,7 @@ export const getRing = (
   return ring
 }
 
-export const createBox = (size: number, segments: number, color: string) => {
+export const getCube = (size: number, segments: number, color: string) => {
   const geometry = new THREE.BoxGeometry(size, size, size, segments, segments, segments)
   const material = new THREE.MeshBasicMaterial({ color: color, wireframe: true })
   const cube = new THREE.Mesh(geometry, material)

@@ -11,12 +11,12 @@ watchEffect(() => {
 
         render(canvas, (scene) => {
 
-            let torus = getTorus('#AED581');
+            const torus = getTorus('#43A047');
             torus.position.x = -200;
             torus.position.y = 0;
             torus.position.z = -100;
 
-            let ring = getRing('#FFEB3B');
+            const ring = getRing('#FFEB3B');
             ring.position.x = -180;
             ring.position.y = 0;
             ring.position.z = 10;

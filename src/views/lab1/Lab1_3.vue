@@ -11,21 +11,21 @@ watchEffect(() => {
         
         render(canvas, (scene) => {
 
-            let ring1 = getRing('white');
+            const ring1 = getRing('white');
             ring1.position.x = -290;
             ring1.position.y = 120;
 
-            let ring2 = getRing('white');
+            const ring2 = getRing('white');
             ring2.position.y = 120;
 
-            let ring3 = getRing('white');
+            const ring3 = getRing('white');
             ring3.position.x = 290;
             ring3.position.y = 120;
 
-            let ring4 = getRing('white');
+            const ring4 = getRing('white');
             ring4.position.x = 150;
 
-            let ring5 = getRing('white');
+            const ring5 = getRing('white');
             ring5.position.x = -150;
 
             scene.add(ring1);

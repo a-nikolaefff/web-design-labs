@@ -1,38 +1,35 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
 import { render } from '/src/services/render.ts';
-import { createBox } from '/src/services/figures.ts';
+import { getCube } from '/src/services/figures.ts';
 
-const webGl = ref();
+const canvasElement = ref();
 
 watchEffect(() => {
-    if (webGl.value) {
-        const canvas = webGl.value;
+    if (canvasElement.value) {
+        const canvas = canvasElement.value;
 
         render(canvas, (scene) => {
 
-            let box1 = createBox(100, 15, 'white');
-            box1.position.x = -500;
-            box1.position.y = -100;
+            const cube1 = getCube(200, 5, '#white');
+            cube1.position.x = -400;
 
-            let box2 = createBox(200, 15, 'blue');
-            
-            let box3 = createBox(300, 15, 'red');
-            box3.position.x = 500;
-            box3.position.y = 100;
+            const cube2 = getCube(300, 5, '#AD1457');
 
-            scene.add(box1);
-            scene.add(box2);
-            scene.add(box3);
+            const cube3 = getCube(400, 5, '#43A047');
+            cube3.position.x = 500;
+
+            scene.add(cube1);
+            scene.add(cube2);
+            scene.add(cube3);
         })
     }
 })
-
 </script>
 
 <template>
-    <h1>Кубы разных размеров</h1>
-    <canvas ref="webGl" class="webGl"></canvas>
+    <h1>Создайте три куба: большой, средний и маленький:</h1>
+    <canvas ref="canvasElement"></canvas>
 </template>
 
 <style scoped  lang="scss">
