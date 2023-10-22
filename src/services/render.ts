@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-export const renderFunc = (
+export const render = (
   canvas: any,
   func: (scene: THREE.Scene) => void,
   whiteBackground: boolean = false

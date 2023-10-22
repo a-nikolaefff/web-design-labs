@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import { renderFunc } from '/src/services/render.ts';
+import { render } from '/src/services/render.ts';
 import { createBox } from '/src/services/figures.ts';
 
 const webGl = ref();
@@ -9,7 +9,7 @@ watchEffect(() => {
     if (webGl.value) {
         const canvas = webGl.value;
 
-        renderFunc(canvas, (scene) => {
+        render(canvas, (scene) => {
 
             let box1 = createBox(100, 20, 'white');
             box1.position.z = 300;

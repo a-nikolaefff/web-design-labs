@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Lab1_1 from '../views/lab1/Lab1_1.vue';
 import Lab1_2 from '../views/lab1/Lab1_2.vue';
 import Lab1_3 from '../views/lab1/Lab1_3.vue';
-import Lab1_4 from '../views/lab1/Lab1_4.vue';
 import Lab1_5 from '../views/lab1/Lab1_5.vue';
 import Lab1_6 from '../views/lab1/Lab1_6.vue';
 import Lab1_7 from '../views/lab1/Lab1_7.vue';
@@ -37,11 +36,6 @@ const router = createRouter({
       path: '/lab1/3',
       name: 'lab1_3',
       component: Lab1_3
-    },
-    {
-      path: '/lab1/4',
-      name: 'lab1_4',
-      component: Lab1_4
     },
     {
       path: '/lab1/5',

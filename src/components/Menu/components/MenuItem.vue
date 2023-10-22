@@ -16,10 +16,7 @@ function handleClick() {
 watch(
     () => route.currentRoute.value.fullPath,
     async () => {
-      console.log(route.currentRoute.value.fullPath)
-      console.log(props.url!)
         isActive.value = route.currentRoute.value.fullPath.includes(props.url);
-      console.log(isActive.value)
     }
 );
 

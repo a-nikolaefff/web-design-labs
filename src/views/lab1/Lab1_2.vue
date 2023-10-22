@@ -1,26 +1,28 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import { renderFunc } from '/src/services/render.ts'
-import { createTorus, createRing } from '/src/services/figures.ts'
+import { render } from '/src/services/render.ts'
+import { getTorus, getRing } from '/src/services/figures.ts'
 
-
-const webGl = ref();
+const canvasElement = ref();
 
 watchEffect(() => {
-    if (webGl.value) {
-        const canvas = webGl.value;
+    if (canvasElement.value) {
+        const canvas = canvasElement.value;
 
-        renderFunc(canvas, (scene) => {
+        render(canvas, (scene) => {
 
-            let torus1 = createTorus('green');
-            torus1.position.z = -100;
+            let torus = getTorus('#AED581');
+            torus.position.x = -200;
+            torus.position.y = 0;
+            torus.position.z = -100;
 
-            let ring = createRing('white');
+            let ring = getRing('#FFEB3B');
+            ring.position.x = -180;
+            ring.position.y = 0;
             ring.position.z = 10;
 
+            scene.add(torus);
             scene.add(ring);
-            scene.add(torus1);
-            
         })
     }
 })
@@ -28,8 +30,8 @@ watchEffect(() => {
 </script>
 
 <template>
-    <h1>Кольцо на торе</h1>
-    <canvas ref="webGl" class="webGl"></canvas>
+    <h1>Разместите кольцо на торе:</h1>
+    <canvas ref="canvasElement"></canvas>
 </template>
 
 <style scoped  lang="scss">

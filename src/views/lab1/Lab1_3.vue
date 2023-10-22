@@ -1,50 +1,47 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import * as THREE from 'three';
-import { renderFunc } from '/src/services/render.ts'
-import { setPositions } from '/src/services/position.ts'
-import { createTorus, createRing } from '/src/services/figures.ts'
+import { render } from '/src/services/render.ts'
+import { getRing } from '/src/services/figures.ts'
 
-
-const webGl = ref();
+const canvasElement = ref();
 
 watchEffect(() => {
-    if (webGl.value) {
-        const canvas = webGl.value;
+    if (canvasElement.value) {
+        const canvas = canvasElement.value;
         
-        renderFunc(canvas, (scene) => {
+        render(canvas, (scene) => {
 
-            let ring1 = createRing('blue');
-            ring1.position.x = -200;
-            ring1.position.y = 100;
+            let ring1 = getRing('white');
+            ring1.position.x = -290;
+            ring1.position.y = 120;
 
-            let ring2 = createRing('black');
-            ring2.position.y = 100;
+            let ring2 = getRing('white');
+            ring2.position.y = 120;
 
-            let ring3 = createRing('red');
-            ring3.position.x = 200;
-            ring3.position.y = 100;
+            let ring3 = getRing('white');
+            ring3.position.x = 290;
+            ring3.position.y = 120;
 
-            let ring4 = createRing('green');
-            ring4.position.x = 100;
+            let ring4 = getRing('white');
+            ring4.position.x = 150;
 
-            let ring5 = createRing('yellow');
-            ring5.position.x = -100;
+            let ring5 = getRing('white');
+            ring5.position.x = -150;
 
             scene.add(ring1);
             scene.add(ring2);
             scene.add(ring3);
             scene.add(ring4);
             scene.add(ring5);
-        }, true)
+        })
     }
 })
 
 </script>
 
 <template>
-    <h1>Олимпийские кольца</h1>
-    <canvas ref="webGl" class="webGl"></canvas>
+    <h1>Создайте из колец символ Олимпийских игр:</h1>
+    <canvas ref="canvasElement"></canvas>
 </template>
 
 <style scoped  lang="scss">

@@ -1,47 +1,37 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import * as THREE from 'three';
-import { renderFunc } from '/src/services/render.ts';
-import { createRing } from '/src/services/figures.ts';
+import { render } from '/src/services/render.ts';
+import { getRing, getCircle } from '/src/services/figures.ts';
 
-const webGl = ref();
-
-const createCircle = () => {
-    const geometry = new THREE.CircleGeometry(15, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 'white' });
-    const circle = new THREE.Mesh(geometry, material);
-
-    return circle;
-}
+const canvasElement = ref();
 
 watchEffect(() => {
-    if (webGl.value) {
-        const canvas = webGl.value;
+    if (canvasElement.value) {
+        const canvas = canvasElement.value;
 
-        renderFunc(canvas, (scene) => {
+        render(canvas, (scene) => {
+          let ring1 = getRing('white');
+          ring1.position.x = -290;
+          ring1.position.y = 120;
 
-            let ring1 = createRing('white');
-            ring1.position.x = -200;
-            ring1.position.y = 100;
+          let ring2 = getRing('white');
+          ring2.position.y = 120;
 
-            let ring2 = createRing('white');
-            ring2.position.y = 100;
+          let ring3 = getCircle();
+          ring3.position.x = 290;
+          ring3.position.y = 120;
 
-            let ring3 = createCircle();
-            ring3.position.x = 200;
-            ring3.position.y = 100;
+          let ring4 = getRing('white');
+          ring4.position.x = 150;
 
-            let ring4 = createRing('white');
-            ring4.position.x = 100;
+          let ring5 = getRing('white');
+          ring5.position.x = -150;
 
-            let ring5 = createRing('white');
-            ring5.position.x = -100;
-
-            scene.add(ring1);
-            scene.add(ring2);
-            scene.add(ring3);
-            scene.add(ring4);
-            scene.add(ring5);
+          scene.add(ring1);
+          scene.add(ring2);
+          scene.add(ring3);
+          scene.add(ring4);
+          scene.add(ring5);
         })
     }
 })
@@ -49,8 +39,8 @@ watchEffect(() => {
 </script>
 
 <template>
-    <h1>Олимпийские кольца с нераскрывшимся (Circle)</h1>
-    <canvas ref="webGl" class="webGl"></canvas>
+    <h1>Сделайте одно из олимпийских колец нераскрывшимся:</h1>
+    <canvas ref="canvasElement"></canvas>
 </template>
 
 <style scoped  lang="scss">
