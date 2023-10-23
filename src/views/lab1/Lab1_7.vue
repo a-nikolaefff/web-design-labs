@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
+import {Scene} from "three";
 import { render } from '/src/services/render.ts';
 import { getCube } from '/src/services/figures.ts';
 
@@ -9,7 +10,7 @@ watchEffect(() => {
     if (canvasElement.value) {
         const canvas = canvasElement.value;
 
-        render(canvas, (scene) => {
+        render(canvas, (scene: Scene) => {
 
             const cube1 = getCube(200, 10, '#white');
             cube1.position.z = 300;

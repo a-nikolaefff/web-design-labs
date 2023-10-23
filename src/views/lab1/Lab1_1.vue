@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
+import {Scene} from "three";
 import { render } from '/src/services/render.ts'
 import { getTorus } from '/src/services/figures.ts'
 
@@ -9,7 +10,7 @@ watchEffect(() => {
     if (canvasElement.value) {
         const canvas = canvasElement.value;
 
-        render(canvas, (scene) => {
+        render(canvas, (scene: Scene) => {
             const torus1 = getTorus('#white');
             torus1.position.x = -500;
             torus1.position.y = 150;

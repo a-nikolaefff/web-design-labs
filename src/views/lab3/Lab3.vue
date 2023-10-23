@@ -139,7 +139,7 @@ watchEffect(() => {
     <h1>Добавление текстур планетам.</h1>
     <div class="content">
         <canvas ref="webGl" class="webGl"></canvas>
-        <div class="right-block">
+        <div class="parameter-block">
             <div>
                 <input type="radio" id="earth" value="earth" v-model="picked" />
                 <label for="earth">Земля</label>
@@ -178,7 +178,7 @@ h1 {
     margin: 15px 0px;
 }
 
-.right-block {
+.parameter-block {
     display: flex;
     flex-direction: column;
     width: 200px;
