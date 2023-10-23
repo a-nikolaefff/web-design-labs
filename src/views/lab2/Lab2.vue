@@ -2,7 +2,7 @@
 import {ref, watchEffect} from "vue";
 import * as THREE from 'three';
 import {Object3D} from "three";
-import {getSphere} from "@/services/figures";
+import {getSimpleSphere} from "@/services/figures";
 
 interface IPlanet {
   name: string;
@@ -10,9 +10,7 @@ interface IPlanet {
 }
 
 const canvasElement = ref();
-
 const selectedPlanetName = ref(undefined);
-
 const speed = ref(undefined);
 const x = ref(undefined);
 const y = ref(undefined);
@@ -44,12 +42,12 @@ watchEffect(() => {
   const renderer = new THREE.WebGLRenderer({canvas: canvas})
   renderer.setSize(width, height)
 
-  const sun = getSphere(2300, 80, 80, true);
+  const sun = getSimpleSphere(2300, 80, 80, true);
 
-  const mercury: IPlanet = {name: 'mercury', object3D: getSphere(60, 20, 20)};
-  const venus: IPlanet = {name: 'venus', object3D: getSphere(90, 20, 20)};
-  const earth: IPlanet = {name: 'earth', object3D: getSphere(100, 40, 40)};
-  const mars: IPlanet = {name: 'mars', object3D: getSphere(80, 20, 20)};
+  const mercury: IPlanet = {name: 'mercury', object3D: getSimpleSphere(60, 20, 20)};
+  const venus: IPlanet = {name: 'venus', object3D: getSimpleSphere(90, 20, 20)};
+  const earth: IPlanet = {name: 'earth', object3D: getSimpleSphere(100, 40, 40)};
+  const mars: IPlanet = {name: 'mars', object3D: getSimpleSphere(80, 20, 20)};
 
   const planets: Array<IPlanet> = [];
   planets.push(mercury, venus, earth, mars);
@@ -64,8 +62,8 @@ watchEffect(() => {
   const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 300000)
   camera.position.set(0, 0, 15000)
 
-  const getSelectedPlanet = (): IPlanet|undefined => {
-    switch (selectedPlanetName.value) {
+  const getSelectedPlanet = (planetName): IPlanet|undefined => {
+    switch (planetName) {
       case 'mercury':
         return mercury;
       case 'venus':
@@ -79,7 +77,7 @@ watchEffect(() => {
     }
   };
 
-  const selectedPlanet = getSelectedPlanet();
+  const selectedPlanet = getSelectedPlanet(selectedPlanetName.value);
 
   if (selectedPlanet && previousPlanetName !== selectedPlanet.name) {
     const defaultParams = getDefaultParameters(selectedPlanet.name);

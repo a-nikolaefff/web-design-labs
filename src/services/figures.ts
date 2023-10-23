@@ -39,9 +39,22 @@ export const getCircle = (): Object3D => {
   return new THREE.Mesh(geometry, material);
 }
 
-export const getSphere = (radius: number, widthSegments: number, heightSegments: number, withWireframe: boolean = false): Object3D => {
+export const getSimpleSphere = (radius: number, widthSegments: number, heightSegments: number, withWireframe: boolean = false): Object3D => {
   const geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
   const material = new THREE.MeshNormalMaterial({ wireframe: withWireframe });
+
+  return new THREE.Mesh(geometry, material);
+}
+
+
+export const getTexturedSphere = (radius: number, widthSegments: number, heightSegments: number, texturePath = '', emissive = undefined) => {
+  const geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
+
+  const textureLoader = new THREE.TextureLoader();
+  const texture = textureLoader.load(texturePath);
+  texture.anisotropy = 16;
+
+  const material = new THREE.MeshPhongMaterial({ map: texture, emissive: emissive });
 
   return new THREE.Mesh(geometry, material);
 }
