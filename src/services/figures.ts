@@ -46,7 +46,6 @@ export const getSimpleSphere = (radius: number, widthSegments: number, heightSeg
   return new THREE.Mesh(geometry, material);
 }
 
-
 export const getTexturedSphere = (radius: number, widthSegments: number, heightSegments: number, texturePath = '', emissive = undefined) => {
   const geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
 

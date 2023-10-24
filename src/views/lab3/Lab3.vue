@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import {Camera, Object3D} from "three";
 import {OrbitControls} from 'three-orbitcontrols-ts';
 import {getTexturedSphere} from "@/services/figures";
+import {setPlanetParameters} from "@/services/planets";
 
 const canvasElement = ref();
 const selectedPlanetName = ref('mercury');
@@ -12,9 +13,9 @@ watchEffect(() => {
   const canvas = canvasElement.value;
 
   const sun: Object3D = getTexturedSphere(2300, 80, 80, '/src/assets/sun.jpg', 0xff0000);
-  const earth: Object3D = getTexturedSphere(100, 40, 40, '/src/assets/earth.jpg');
   const mercury: Object3D = getTexturedSphere(60, 20, 20, '/src/assets/mercury.jpg');
   const venus: Object3D = getTexturedSphere(90, 20, 20, '/src/assets/venus.jpg');
+  const earth: Object3D = getTexturedSphere(100, 40, 40, '/src/assets/earth.jpg');
   const mars: Object3D = getTexturedSphere(80, 20, 20, '/src/assets/textures/mars.jpg');
   const jupiter: Object3D = getTexturedSphere(350, 20, 20, '/src/assets/textures/jupiter.jpg');
   const saturn: Object3D = getTexturedSphere(230, 20, 20, '/src/assets/textures/saturn.jpg');
@@ -52,9 +53,10 @@ watchEffect(() => {
   const renderer = new THREE.WebGLRenderer({canvas: canvas})
   renderer.setSize(width, height)
 
+  const light = new THREE.AmbientLight(0xffffff)
+
   const scene = new THREE.Scene()
 
-  const light = new THREE.AmbientLight(0xffffff)
   scene.add(light)
 
   scene.add(sun);
@@ -67,17 +69,9 @@ watchEffect(() => {
 
   const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 300000)
 
-  camera.position.set(0, 0, 15000);
-
   const orbitControls = new OrbitControls(camera, canvas);
 
   let t = 0;
-
-  const setPlanetParameters = (planet: Object3D, speed: number, x: number, y: number, z: number) => {
-    planet.position.x = Math.sin(speed) * x;
-    planet.position.y = y;
-    planet.position.z = Math.cos(speed) * z;
-  };
 
   const render = () => {
     orbitControls.update();
