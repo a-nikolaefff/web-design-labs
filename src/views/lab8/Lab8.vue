@@ -1,206 +1,164 @@
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
-
+import {ref, watchEffect} from "vue";
 import * as THREE from 'three';
+import {getTexturedSphere} from "@/services/figures";
+import {createStars} from "@/services/stars";
+import {getSaturnRing, setPlanetParameters} from "@/services/planets";
 
-const webGl = ref();
+const canvasElement = ref();
 
-var Orbit = function (radius: number) {
-    this.radius = radius;
+const Orbit = function (radius: number) {
+  this.radius = radius;
 
-    this.draw = function (scene: any) {
-        var og = new THREE.Geometry();
-        var om = new THREE.PointsMaterial({color:0xbfbfbf,size: 1, sizeAttenuation: false});
+  this.draw = function (scene: any) {
+    const geometry = new THREE.Geometry();
+    const material = new THREE.PointsMaterial({color: 0xbfbfbf, size: 1, sizeAttenuation: false});
 
-        for(let i =0; i<50000; i++)
-        {
-            var v = new THREE.Vector3();
-            v.x = Math.sin(180/Math.PI*i)*this.radius; 
-            v.z = Math.cos(180/Math.PI*i)*this.radius;
-            
-            og.vertices.push(v);
-        }
+    for (let i = 0; i < 50000; i++) {
+      let v = new THREE.Vector3();
+      v.x = Math.sin(180 / Math.PI * i) * this.radius;
+      v.z = Math.cos(180 / Math.PI * i) * this.radius;
 
-        var obj = new THREE.Points(og,om);
-        scene.add(obj);
+      geometry.vertices.push(v);
     }
+
+    const orbit = new THREE.Points(geometry, material);
+    scene.add(orbit);
+  }
 }
 
-var Planet = function(radius: number, texture: string){
-    this.radius = radius;
-    this.texture = texture;
-    this.init= function(){
-        let g = new THREE.SphereGeometry(this.radius, 40, 40);
-        var onloadT = new THREE.TextureLoader();
-        var t = onloadT.load(this.texture);
-        t.anisotropy = 8;
-        let material = new THREE.MeshPhongMaterial({ map: t });
-        let p = new THREE.Mesh(g, material)
-        p.castShadow = true;
+const Planet = function (radius: number, texture: string) {
+  this.radius = radius;
+  this.texture = texture;
+  this.init = function () {
+    let geometry = new THREE.SphereGeometry(this.radius, 40, 40);
+    const textureLoader = new THREE.TextureLoader();
+    const loadedTexture = textureLoader.load(this.texture);
+    loadedTexture.anisotropy = 8;
+    let material = new THREE.MeshPhongMaterial({map: loadedTexture});
+    let planet = new THREE.Mesh(geometry, material)
+    planet.castShadow = true;
 
-        return p;
-    }
-}
-
-const createSphere = (radius, w_segments, h_segments, texturePath = '', emissive = undefined) => {
-    let geometry = new THREE.SphereGeometry(radius, w_segments, h_segments);
-    const loader = new THREE.TextureLoader();
-    const texture = loader.load(texturePath);
-    texture.anisotropy = 8;
-    let material = new THREE.MeshPhongMaterial({ map: texture, emissive: emissive });
-    let sphere = new THREE.Mesh(geometry, material)
-
-    return sphere;
+    return planet;
+  }
 }
 
 watchEffect(() => {
-    if (webGl.value) {
-        const canvas = webGl.value;
+  const canvas = canvasElement.value;
 
-        const width = window.innerWidth - 350;
-        const height = window.innerHeight - 200;
+  const width = window.innerWidth - 65;
+  const height = window.innerHeight - 200;
 
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas });
-        renderer.setSize(width, height);
+  const renderer = new THREE.WebGLRenderer({canvas: canvas});
+  renderer.setSize(width, height);
 
-        const scene = new THREE.Scene();
-        const light1 = new THREE.AmbientLight(0x808080);
-        const light2 = new THREE.PointLight( 0xffffff, 3, 200000 );
-        light2.castShadow = true;
-        light2.shadow.mapSize.width = 2048;
-        light2.shadow.mapSize.height = 2048;
-        light2.position.set(0,0,0);
+  const scene = new THREE.Scene();
+  const ambientLight = new THREE.AmbientLight(0x808080);
+  const pointLight = new THREE.PointLight(0xffffff, 3, 200000);
 
-        scene.add(light1);
-        scene.add(light2);
+  pointLight.castShadow = true;
+  pointLight.shadow.mapSize.width = 2048;
+  pointLight.shadow.mapSize.height = 2048;
+  pointLight.position.set(0, 0, 0);
 
-        var sun = createSphere(2300, 80, 80, '/src/assets/textures/sun.jpg', 0xff0000);
-        
-        var earth = new Planet(100, '/src/assets/textures/earth.jpg').init();
-        var mercury = new Planet(60, '/src/assets/textures/mercury.jpg').init();
-        var mercury_orbit = new Orbit(4000);
-        mercury_orbit.draw(scene);
-        
-        var venus = new Planet(90, '/src/assets/textures/venus.jpg').init();
-        var venus_orbit = new Orbit(5500);
-        venus_orbit.draw(scene);
+  scene.add(ambientLight);
+  scene.add(pointLight);
 
-        var mars = new Planet(80, '/src/assets/textures/mars.jpg').init();
-        var mars_orbit = new Orbit(8000);
-        mars_orbit.draw(scene);
+  const sun = getTexturedSphere(2300, 80, 80, '/src/assets/textures/sun.jpg', 0xff0000, 8);
+  scene.add(sun);
 
-        var jupiter = new Planet(350, '/src/assets/textures/jupiter.jpg').init();
-        var jupiter_orbit = new Orbit(10700);
-        jupiter_orbit.draw(scene);
+  const mercury = new Planet(60, '/src/assets/textures/mercury.jpg').init();
+  const venus = new Planet(90, '/src/assets/textures/venus.jpg').init();
+  const earth = new Planet(100, '/src/assets/textures/earth.jpg').init();
+  const mars = new Planet(80, '/src/assets/textures/mars.jpg').init();
+  const jupiter = new Planet(350, '/src/assets/textures/jupiter.jpg').init();
+  const saturn = new Planet(230, '/src/assets/textures/saturn.jpg').init();
 
-        var saturn = new Planet(230, '/src/assets/textures/saturn.jpg').init();
+  const planets = [];
+  planets.push(mercury, venus, earth, mars, jupiter, saturn);
+  planets.forEach((planet) => {
+    planet.castShadow = true;
+    scene.add(planet);
+  });
 
-        var saturn_orbit = new Orbit(12000);
-        saturn_orbit.draw(scene);
+  const mercuryOrbit = new Orbit(4000);
+  const venusOrbit = new Orbit(5500);
+  const marsOrbit = new Orbit(8000);
+  const jupiterOrbit = new Orbit(10700);
+  const saturnOrbit = new Orbit(12000);
 
-        const ring_saturn_geometry = new THREE.Geometry();
-        const ring_saturn_geometry_material = new THREE.PointsMaterial({color:0x3A3A3A, size: 1, sizeAttenuation: false});
+  const orbits = [];
+  orbits.push(mercuryOrbit, venusOrbit, marsOrbit, jupiterOrbit, saturnOrbit);
+  orbits.forEach((orbit) => {
+    orbit.draw(scene);
+  });
 
-        for(let i=0; i<20000; i++)
-        {
-            var vertex = new THREE.Vector3();
-            vertex.x = Math.sin(180/Math.PI*i)*(550 - i/80);
-            vertex.y = Math.random() * 20;
-            vertex.z = Math.cos(180/Math.PI*i)*(550 - i/80);
+  const earthOrbitGeometry = new THREE.Geometry();
+  const earthOrbitMaterial = new THREE.PointsMaterial({color: 0xffffff, size: 1, sizeAttenuation: false});
 
-            ring_saturn_geometry.vertices.push(vertex); 
-        }
+  for (let i = 0; i < 200000; i++) {
+    let earthOrbitVertex = new THREE.Vector3();
+    earthOrbitVertex.x = Math.sin(180 / Math.PI * i) * 7500;
+    earthOrbitVertex.z = Math.cos(180 / Math.PI * i) * 7500;
 
-        var ring = new THREE.Points(ring_saturn_geometry, ring_saturn_geometry_material);
-        ring.castShadow = true;
-        scene.add(ring);
+    earthOrbitGeometry.vertices.push(earthOrbitVertex);
+  }
 
+  const earthOrbit = new THREE.Points(earthOrbitGeometry, earthOrbitMaterial);
+  earthOrbit.castShadow = true;
+  scene.add(earthOrbit);
 
+  const saturnRing = getSaturnRing(0x3A3A3A, 1);
+  saturnRing.castShadow = true;
+  scene.add(saturnRing);
 
-        const earth_orbit_geometry = new THREE.Geometry();
-        const earth_orbit_geometry_material = new THREE.PointsMaterial({color:0xffffff, size: 1, opacity: 0.3, sizeAttenuation: false});
+  const stars = createStars(0xffffff, 40000, 200);
+  scene.add(stars);
 
-        for(let i=0; i<200000; i++)
-        {
-            var earth_orbit_vertex = new THREE.Vector3();
-            earth_orbit_vertex.x = Math.sin(180/Math.PI*i)*7500;
-            earth_orbit_vertex.z = Math.cos(180/Math.PI*i)*7500;
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 30000)
 
-            earth_orbit_geometry.vertices.push(earth_orbit_vertex); 
-        }
+  camera.position.set(0, 0, 19000);
 
-        var earth_orbit = new THREE.Points(earth_orbit_geometry, earth_orbit_geometry_material);
-        earth_orbit.castShadow = true;
-        scene.add(earth_orbit);
+  let t = 0;
 
-        scene.add(sun);
-        scene.add(earth);
-        scene.add(mercury);
-        scene.add(venus);
-        scene.add(mars);
-        scene.add(jupiter);
-        scene.add(saturn);
+  const render = () => {
+    requestAnimationFrame(render);
 
-        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 30000)
+    setPlanetParameters(mercury, t * 0.3, 4000, 0 , 4000);
+    setPlanetParameters(venus, t * 0.2, 5500, 0 , 5500);
+    setPlanetParameters(earth, t * 0.1, 7500, 0 , 7500);
+    setPlanetParameters(mars, t * 0.08, 8000, 0 , 8000);
+    setPlanetParameters(jupiter, t * 0.08, 10700, 0 , 10700);
+    setPlanetParameters(saturn, t * 0.08, 12000, 0 , 12000);
 
-        camera.position.set(0, 0, 19000);
+    saturnRing.position.x = saturn.position.x;
+    saturnRing.position.z = saturn.position.z;
 
-        var t = 0;
+    sun.rotation.y += 0.001;
+    earth.rotation.y += 0.0008;
 
-        const loop = () => {
-            
-            requestAnimationFrame(loop);
+    saturn.rotation.y += 0.001;
+    saturnRing.rotation.y -= 0.001;
 
-            
+    camera.position.y = 1500;
 
-            camera.position.y = 1500;
-            
-            ring.position.x = saturn.position.x;
-            ring.position.z = saturn.position.z;
+    t += 0.01;
 
-            earth.position.x = Math.sin(t * 0.1) * 7500;
-            earth.position.z = Math.cos(t * 0.1) * 7500;
+    renderer.render(scene, camera);
+  }
 
-            mercury.position.x = Math.sin(t * 0.3) * 4000;
-            mercury.position.z = Math.cos(t * 0.3) * 4000;
-
-            venus.position.x = Math.sin(t * 0.2) * 5500;
-            venus.position.z = Math.cos(t * 0.2) * 5500;
-
-            mars.position.x = Math.sin(t * 0.08) * 8000;
-            mars.position.z = Math.cos(t * 0.08) * 8000;
-
-            jupiter.position.x = Math.sin(t * 0.08) * 10700;
-            jupiter.position.z = Math.cos(t * 0.08) * 10700;
-
-            saturn.position.x = Math.sin(t * 0.08) * 12000;
-            saturn.position.z = Math.cos(t * 0.08) * 12000;
-
-            t += 0.01;
-
-            sun.rotation.y += 0.001;
-            earth.rotation.y += 0.0008;
-
-            saturn.rotation.y += 0.001;
-            ring.rotation.y -= 0.001;
-
-            renderer.render(scene, camera);
-        }
-
-        loop();
-
-    }
+  render();
 })
 
 </script>
 
 <template>
-    <h1>Оптимизация.</h1>
-    <canvas ref="webGl" class="webGl"></canvas>
+  <h1>Оптимизация</h1>
+  <canvas ref="canvasElement"></canvas>
 </template>
 
-<style scoped  lang="scss">
+<style scoped>
 h1 {
-    margin: 15px 0px;
+  margin: 15px 0px;
 }
 </style>

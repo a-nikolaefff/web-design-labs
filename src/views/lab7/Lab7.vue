@@ -8,7 +8,7 @@ const canvasElement = ref();
 watchEffect(() => {
   const canvas = canvasElement.value;
 
-  const width = window.innerWidth - 350;
+  const width = window.innerWidth - 65;
   const height = window.innerHeight - 200;
   const renderer = new THREE.WebGLRenderer({canvas: canvas})
   renderer.setSize(width, height)
@@ -18,7 +18,7 @@ watchEffect(() => {
   const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 300000)
   camera.position.set(0, 0, 9000);
 
-  const stars = createStars(0xffffff, 40000);
+  const stars = createStars(0xffffff, 40000, 2000);
   scene.add(stars);
 
   renderer.render(scene, camera);

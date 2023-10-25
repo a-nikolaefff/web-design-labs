@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export const createStars = (color: any, count: number) => {
+export const createStars = (color: any, count: number, scalar: number) => {
     const geometry = new THREE.Geometry();
     const material = new THREE.PointsMaterial({color: color, opacity: 0.1, size: 1, sizeAttenuation: false});
 
@@ -10,7 +10,7 @@ export const createStars = (color: any, count: number) => {
         vertex.y = Math.random() * 2 - 1;
         vertex.z = Math.random() * 2 - 1;
 
-        vertex.multiplyScalar(2000);
+        vertex.multiplyScalar(scalar);
         geometry.vertices.push(vertex);
     }
 

@@ -22,8 +22,8 @@ const Orbit = function (radius: number) {
       og.vertices.push(v);
     }
 
-    const obj = new THREE.Points(og, om);
-    scene.add(obj);
+    const object = new THREE.Points(og, om);
+    scene.add(object);
   }
 }
 
@@ -106,11 +106,6 @@ watchEffect(() => {
   const render = () => {
     requestAnimationFrame(render);
 
-    camera.position.y = 1500;
-
-    saturnRing.position.x = saturn.position.x;
-    saturnRing.position.z = saturn.position.z;
-
     setPlanetParameters(mercury, t * 0.3, 4000, 0 , 4000);
     setPlanetParameters(venus, t * 0.2, 5500, 0 , 5500);
     setPlanetParameters(earth, t * 0.1, 7500, 0 , 7500);
@@ -118,11 +113,16 @@ watchEffect(() => {
     setPlanetParameters(jupiter, t * 0.08, 10700, 0 , 10700);
     setPlanetParameters(saturn, t * 0.08, 12000, 0 , 12000);
 
+    saturnRing.position.x = saturn.position.x;
+    saturnRing.position.z = saturn.position.z;
+
     sun.rotation.y += 0.001;
     earth.rotation.y += 0.0008;
 
     saturn.rotation.y += 0.001;
     saturnRing.rotation.y -= 0.001;
+
+    camera.position.y = 1500;
 
     t += 0.01;
 

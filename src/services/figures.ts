@@ -46,12 +46,12 @@ export const getSimpleSphere = (radius: number, widthSegments: number, heightSeg
   return new THREE.Mesh(geometry, material);
 }
 
-export const getTexturedSphere = (radius: number, widthSegments: number, heightSegments: number, texturePath = '', emissive = undefined) => {
+export const getTexturedSphere = (radius: number, widthSegments: number, heightSegments: number, texturePath = '', emissive = undefined, anisotropy: number = 16) => {
   const geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
 
   const textureLoader = new THREE.TextureLoader();
   const texture = textureLoader.load(texturePath);
-  texture.anisotropy = 16;
+  texture.anisotropy = anisotropy;
 
   const material = new THREE.MeshPhongMaterial({ map: texture, emissive: emissive });
 
