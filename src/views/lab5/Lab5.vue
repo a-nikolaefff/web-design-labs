@@ -3,7 +3,7 @@ import {ref, watchEffect} from "vue";
 import * as THREE from 'three';
 import {Object3D} from "three";
 import {getTexturedSphere} from "@/services/figures";
-import {setPlanetParameters} from "@/services/planets";
+import {getSaturnRing, setPlanetParameters} from "@/services/planets";
 
 const canvasElement = ref();
 
@@ -46,21 +46,9 @@ watchEffect(() => {
 
   scene.add(sun);
 
-  const saturnRungGeometry = new THREE.Geometry();
-  const saturnRingGeometryMaterial = new THREE.PointsMaterial({color: 0x3A3A3A, size: 1, sizeAttenuation: false});
-
-  for (let i = 0; i < 20000; i++) {
-    const vertex = new THREE.Vector3();
-    vertex.x = Math.sin(Math.PI / 180 * i) * (550 - i / 80);
-    vertex.y = Math.random() * 20;
-    vertex.z = Math.cos(Math.PI / 180 * i) * (550 - i / 80);
-
-    saturnRungGeometry.vertices.push(vertex);
-  }
-
-  const ring = new THREE.Points(saturnRungGeometry, saturnRingGeometryMaterial);
-  ring.castShadow = true;
-  scene.add(ring);
+  const saturnRing = getSaturnRing(0x3A3A3A, 1);
+  saturnRing.castShadow = true;
+  scene.add(saturnRing);
 
   const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 30000)
 
@@ -78,8 +66,8 @@ watchEffect(() => {
     setPlanetParameters(jupiter, t * 0.08, 10700, 0 , 10700);
     setPlanetParameters(saturn, t * 0.08, 12000, 0 , 12000);
 
-    ring.position.x = saturn.position.x;
-    ring.position.z = saturn.position.z;
+    saturnRing.position.x = saturn.position.x;
+    saturnRing.position.z = saturn.position.z;
 
     camera.position.x = saturn.position.x + 1000;
     camera.position.z = saturn.position.z + 1000;
@@ -88,7 +76,7 @@ watchEffect(() => {
 
     sun.rotation.y += 0.001;
     saturn.rotation.y += 0.001;
-    ring.rotation.y -= 0.001;
+    saturnRing.rotation.y -= 0.001;
 
     t += 0.01;
 

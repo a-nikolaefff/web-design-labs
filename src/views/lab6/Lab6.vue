@@ -3,7 +3,7 @@ import {ref, watchEffect} from "vue";
 import * as THREE from 'three';
 import {Object3D} from "three";
 import {getTexturedSphere} from "@/services/figures";
-import {setPlanetParameters} from "@/services/planets";
+import {getSaturnRing, setPlanetParameters} from "@/services/planets";
 
 const canvasElement = ref();
 
@@ -93,19 +93,7 @@ watchEffect(() => {
     orbit.draw(scene);
   });
 
-  const saturnRingGeometry = new THREE.Geometry();
-  const saturnRingMaterial = new THREE.PointsMaterial({color: 0x3A3A3A, size: 1, sizeAttenuation: false});
-
-  for (let i = 0; i < 20000; i++) {
-    let vertex = new THREE.Vector3();
-    vertex.x = Math.sin(Math.PI / 180 * i) * (550 - i / 80);
-    vertex.y = Math.random() * 20;
-    vertex.z = Math.cos(Math.PI / 180 * i) * (550 - i / 80);
-
-    saturnRingGeometry.vertices.push(vertex);
-  }
-
-  const saturnRing = new THREE.Points(saturnRingGeometry, saturnRingMaterial);
+  const saturnRing = getSaturnRing(0x3A3A3A, 1);
   saturnRing.castShadow = true;
   scene.add(saturnRing);
 
