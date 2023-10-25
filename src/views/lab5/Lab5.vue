@@ -15,26 +15,27 @@ watchEffect(() => {
   const renderer = new THREE.WebGLRenderer({canvas: canvas})
   renderer.setSize(width, height)
 
-  const light1 = new THREE.AmbientLight(0x919191);
-  const light2 = new THREE.PointLight(0xC1C1C1, 3, 200000);
+  const ambientLight = new THREE.AmbientLight(0x919191);
+  const pointLight = new THREE.PointLight(0xC1C1C1, 3, 200000);
 
-  light2.castShadow = true;
-  light2.shadow.mapSize.width = 2048;
-  light2.shadow.mapSize.height = 2048;
-  light2.position.set(0, 0, 0);
+  pointLight.castShadow = true;
+  pointLight.shadow.mapSize.width = 2048;
+  pointLight.shadow.mapSize.height = 2048;
+  pointLight.position.set(0, 0, 0);
 
   const sun = getTexturedSphere(2300, 80, 80, '/src/assets/textures/sun.jpg', 0xff0000);
-  const earth = getTexturedSphere(100, 40, 40, '/src/assets/textures/earth.jpg');
+
   const mercury = getTexturedSphere(60, 20, 20, '/src/assets/textures/mercury.jpg');
   const venus = getTexturedSphere(90, 20, 20, '/src/assets/textures/venus.jpg');
+  const earth = getTexturedSphere(100, 40, 40, '/src/assets/textures/earth.jpg');
   const mars = getTexturedSphere(80, 20, 20, '/src/assets/textures/mars.jpg');
   const jupiter = getTexturedSphere(350, 20, 20, '/src/assets/textures/jupiter.jpg');
   const saturn = getTexturedSphere(230, 20, 20, '/src/assets/textures/saturn.jpg');
 
   const scene = new THREE.Scene();
 
-  scene.add(light1);
-  scene.add(light2);
+  scene.add(ambientLight);
+  scene.add(pointLight);
 
   const planets: Array<Object3D> = [];
   planets.push(mercury, venus, earth, mars, jupiter, saturn);
@@ -85,11 +86,11 @@ watchEffect(() => {
     camera.position.y = 200;
     camera.lookAt(saturn.position);
 
-    t += 0.01;
-
     sun.rotation.y += 0.001;
     saturn.rotation.y += 0.001;
     ring.rotation.y -= 0.001;
+
+    t += 0.01;
 
     renderer.render(scene, camera);
   }
