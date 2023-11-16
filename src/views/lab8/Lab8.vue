@@ -12,9 +12,12 @@ const Orbit = function (radius: number) {
 
   this.draw = function (scene: any) {
     const geometry = new THREE.Geometry();
-    const material = new THREE.PointsMaterial({color: 0xbfbfbf, size: 1, sizeAttenuation: false});
+    const material = new THREE.PointsMaterial({
+      color: 0xbfbfbf,
+      size: 1,
+      sizeAttenuation: false});
 
-    for (let i = 0; i < 50000; i++) {
+    for (let i = 0; i < 500; i++) {
       let v = new THREE.Vector3();
       v.x = Math.sin(180 / Math.PI * i) * this.radius;
       v.z = Math.cos(180 / Math.PI * i) * this.radius;

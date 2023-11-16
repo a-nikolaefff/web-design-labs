@@ -40,7 +40,7 @@ watchEffect(() => {
 </script>
 
 <template>
-    <h1>Сделайте одно из олимпийских колец нераскрывшимся:</h1>
+    <h1>Сделайте одно из олимпийских колец нераскрывшимся</h1>
     <canvas ref="canvasElement"></canvas>
 </template>
 

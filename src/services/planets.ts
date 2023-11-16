@@ -9,7 +9,11 @@ export const setPlanetParameters = (planet: Object3D, speed: number, x: number, 
 
 export const getSaturnRing = (color: any, size: number) => {
     const saturnRingGeometry = new THREE.Geometry();
-    const saturnRingMaterial = new THREE.PointsMaterial({color: color, size: size, sizeAttenuation: false});
+    const saturnRingMaterial = new THREE.PointsMaterial({
+        color: color,
+        size: size,
+        sizeAttenuation: false
+    });
 
     for (let i = 0; i < 20000; i++) {
         let vertex = new THREE.Vector3();

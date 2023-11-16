@@ -12,9 +12,13 @@ const Orbit = function (radius: number) {
 
   this.draw = function (scene: any) {
     const og = new THREE.Geometry();
-    const om = new THREE.PointsMaterial({color: 0xbfbfbf, size: 1, sizeAttenuation: false});
+    const om = new THREE.PointsMaterial({
+      color: 0xbfbfbf,
+      size: 1,
+      sizeAttenuation: false
+    });
 
-    for (let i = 0; i < 50000; i++) {
+    for (let i = 0; i < 200000; i++) {
       let v = new THREE.Vector3();
       v.x = Math.sin(Math.PI / 180 * i) * this.radius;
       v.z = Math.cos(Math.PI / 180 * i) * this.radius;
@@ -67,7 +71,11 @@ watchEffect(() => {
   });
 
   const earthOrbitGeometry = new THREE.Geometry();
-  const earthOrbitMaterial = new THREE.PointsMaterial({color: 0xffffff, size: 1, sizeAttenuation: false});
+  const earthOrbitMaterial = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 1,
+    sizeAttenuation: false
+  });
 
   for (let i = 0; i < 200000; i++) {
     let earthOrbitVertex = new THREE.Vector3();
@@ -135,7 +143,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <h1>Создание орбит планет.</h1>
+  <h1>Создание орбит планет</h1>
   <canvas ref="canvasElement"></canvas>
 </template>
 

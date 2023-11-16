@@ -29,7 +29,7 @@ watchEffect(() => {
 </script>
 
 <template>
-    <h1>Создайте три куба: большой, средний и маленький:</h1>
+    <h1>Создайте три куба: большой, средний и маленький</h1>
     <canvas ref="canvasElement"></canvas>
 </template>
 

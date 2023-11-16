@@ -90,10 +90,16 @@ watchEffect(() => {
     previousPlanetName = selectedPlanet.name;
   }
 
-  const setPlanetParameters = (planet: IPlanet, speed: number, x: number, y: number, z: number) => {
+  const setPlanetParameters = (planet: IPlanet,
+                               speed: number,
+                               x: number,
+                               y: number,
+                               z: number, yRotation:
+                                   number = 0.0008) => {
     planet.object3D.position.x = Math.sin(speed) * x;
     planet.object3D.position.y = y;
     planet.object3D.position.z = Math.cos(speed) * z;
+    planet.object3D.rotation.y = yRotation;
   };
 
   let t = 0;
@@ -111,8 +117,9 @@ watchEffect(() => {
       }
     })
 
-    t += 0.01;
     sun.rotation.y += 0.001;
+
+    t += 0.01;
 
     renderer.render(scene, camera);
   }
@@ -124,7 +131,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <h1>Анимация моделей. Создание солнечной системы.</h1>
+  <h1>Анимация моделей. Создание солнечной системы</h1>
 
   <div class="block planet-selection">
     <div class="block-head">Выбор планеты</div>

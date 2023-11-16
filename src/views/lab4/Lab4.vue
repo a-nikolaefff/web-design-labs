@@ -60,9 +60,9 @@ watchEffect(() => {
     setPlanetParameters(jupiter, t * 0.08, 10700, 0 , 10700);
     setPlanetParameters(saturn, t * 0.08, 12000, 0 , 12000);
 
-    t += 0.01;
-
     sun.rotation.y += 0.001;
+
+    t += 0.01;
 
     renderer.render(scene, camera);
   }
@@ -73,7 +73,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <h1>Добавление источников света. Работа с тенями.</h1>
+  <h1>Добавление источников света. Работа с тенями</h1>
   <canvas ref="canvasElement"></canvas>
 </template>
 

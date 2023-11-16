@@ -27,7 +27,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <h1>Звездное небо.</h1>
+  <h1>Звездное небо</h1>
   <canvas ref="canvasElement"></canvas>
 </template>
 

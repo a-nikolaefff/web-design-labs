@@ -86,8 +86,6 @@ watchEffect(() => {
     setPlanetParameters(jupiter, t * 0.08, 10700, 0 , 10700);
     setPlanetParameters(saturn, t * 0.08, 12000, 0 , 12000);
 
-    t += 0.01;
-
     sun.rotation.y += 0.001;
 
     earth.rotation.y += 0.001;
@@ -96,6 +94,8 @@ watchEffect(() => {
     mars.rotation.y += 0.001;
     jupiter.rotation.y += 0.001;
     saturn.rotation.y += 0.001;
+
+    t += 0.01;
 
     renderer.render(scene, camera);
   }
@@ -106,7 +106,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <h1>Добавление текстур планетам.</h1>
+  <h1>Добавление текстур планетам</h1>
   <div class="block planet-selection">
     <div class="block-head">Фокус на планете</div>
       <div>

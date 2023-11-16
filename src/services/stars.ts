@@ -2,7 +2,11 @@ import * as THREE from "three";
 
 export const createStars = (color: any, count: number, scalar: number) => {
     const geometry = new THREE.Geometry();
-    const material = new THREE.PointsMaterial({color: color, opacity: 0.1, size: 1, sizeAttenuation: false});
+    const material = new THREE.PointsMaterial({
+        color: color,
+        opacity: 0.1,
+        size: 1,
+        sizeAttenuation: false});
 
     for (let i = 0; i < count; i++) {
         let vertex = new THREE.Vector3();

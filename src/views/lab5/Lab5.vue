@@ -89,7 +89,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <h1>Создание кольца сатурна.</h1>
+  <h1>Создание кольца сатурна</h1>
   <canvas ref="canvasElement"></canvas>
 </template>
 
